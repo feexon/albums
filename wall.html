@@ -17,43 +17,46 @@
         }
 
         ul {
-            width: 400px;
+            width: 100%;
             margin: 0 auto;
 
         }
 
         li {
-            width:100px;
+            width: 200px;
             padding: 10px;
             background: #fff;
             border-right: 1px solid #eee;
             border-bottom: 1px solid #eee;
             margin: 6px -5px -5px 6px;
         }
-         .wall span,.wall em{width:90px;}
+
+        .wall span, .wall em {
+            width: 190px;
+        }
+
         .wall span {
             display: block;
             position: absolute;
-            z-index:99999;
-            opacity:0.6;
+            z-index: 99999;
+            opacity: 0.6;
 
             background: #000;
-            left:10px;
-            bottom:10px;
-            padding:10px 5px;
-            text-overflow:clip;
-            white-space:nowrap;
-            color:#fff;
+            left: 10px;
+            bottom: 10px;
+            padding: 10px 5px;
+            text-overflow: clip;
+            white-space: nowrap;
+            color: #fff;
             overflow: hidden;
         }
-        .wall span em{
-            font-style:normal;
 
-            color:#fff;
-
+        .wall span em {
+            font-style: normal;
+            color: #fff;
             white-space: nowrap;
             text-overflow: clip;
-            display:block;
+            display: block;
             overflow: hidden;
         }
     </style>
@@ -64,9 +67,20 @@
 <body>
 <ul class="wall">
     <script type="text/javascript">
-        $.each(thumbs, function () {
-            $('.wall').append('<li><img src="' + this.thumb_large_url + '"/><span><em>' + this.abs + '</em></span></li>');
-        });
+        var step = 30;
+        var count = parseInt((thumbs.length+ step-1)/step);
+        var pos=0;
+        setTimeout(function () {
+            var offset = pos * step;
+            for(var i= offset;i<offset+step;i++){
+                var it=thumbs[i];
+                $('.wall').append('<li><img src="' + it.thumb_large_url + '"/><span><em>' + it.abs + '</em></span></li>');
+            }
+            wall.updateLayout();
+            if(++pos<count){
+                setTimeout(arguments.callee,2000);
+            }
+        },10);
     </script>
 </ul>
 </body>
