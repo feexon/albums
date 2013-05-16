@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8"/>
+    <style type="text/css">
+        html, body {
+            margin: 0;
+            padding: 0;
+        }
+
+        ul, li {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+            border: 0;
+        }
+
+        ul {
+            width: 100%;
+            margin: 0 auto;
+
+        }
+
+        li {
+            width:400px;
+            padding: 10px;
+            background: #fff;
+            border-right: 1px solid #eee;
+            border-bottom: 1px solid #eee;
+            margin: 10px -5px -5px 10px;
+        }
+         .wall span,.wall em{width:390px;}
+        .wall span {
+            display: block;
+            position: absolute;
+            z-index:99999;
+            opacity:0.6;
+
+            background: #000;
+            left:10px;
+            bottom:10px;
+            padding:10px 5px;
+            text-overflow:clip;
+            white-space:nowrap;
+            color:#fff;
+            overflow: hidden;
+        }
+        .wall span em{
+            font-style:normal;
+
+            color:#fff;
+
+            white-space: nowrap;
+            text-overflow: clip;
+            display:block;
+            overflow: hidden;
+        }
+    </style>
+    <script type="text/javascript" src="lib/jquery.js"></script>
+    <script type="text/javascript" src="lib/columns-wall.js"></script>
+    <script type="text/javascript" src="data/thumbs-data.js"></script>
+</head>
+<body>
+<ul class="wall">
+    <script type="text/javascript">
+        $.each(thumbs, function () {
+            $('.wall').append('<li><img src="' + this.thumb_large_url + '"/><span><em>' + this.abs + '</em></span></li>');
+        });
+    </script>
+</ul>
+</body>
+</html>
