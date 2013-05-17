@@ -109,7 +109,7 @@
                 var image = $('img', me.thumbs).eq(index);
                 me.layout(image, function (actualWidth, actualHeight) {
                     var li = image.parent();
-                    image.width(li.width()).height(Math.round(actualHeight * li.width() / actualWidth)).attr('src',this.src);
+                    image.width(li.width()).height(Math.round(actualWidth?actualHeight * li.width() / actualWidth:0)).attr('src',this.src);
                     var prev = me.previous(index);
                     var top = me.above(index);
                     var x = prev.position().left + prev.outerWidth(true);
@@ -129,6 +129,7 @@
                     var size;
                     if (isTimeout == 'timeout') {
                         measured.src = '';
+                        measured.onload=undefined;
                         size = [0, 0];
                     } else {
                         done = true;
