@@ -61,6 +61,7 @@
         }
     </style>
     <script type="text/javascript" src="lib/jquery.js"></script>
+    <script type="text/javascript" src="lib/columns-wall.js"></script>
     <script type="text/javascript" src="data/thumbs-data.js"></script>
 </head>
 <body>
@@ -68,105 +69,8 @@
 
 </ul>
 <script type="text/javascript">
-    (function () {
-        var none = {
-            position: function () {
-                return {left: 0, top: 0};
-            },
-            outerWidth: function () {
-                return 0;
-            },
-            outerHeight: function () {
-                return 0;
-            },
-            hasClass: function () {
-                return true;
-            },
-            css: function () {
-                return "";
-            }
-        };
-
-        var me = wall = {
-            timeout: 5000,
-            columns: -1,
-            last: [],
-            previous: function (pos) {
-                return pos % me.columns == 0 ? none : $(me.thumbs.get(pos - 1));
-            },
-            above: function (pos) {
-                return pos < me.columns ? none : $(me.thumbs.get(pos - me.columns));
-            },
-            lowest: function (index) {
-                var last = me.last;
-                var len = last.length;
-                if (len < me.columns)
-                    return len;
-                var min=0;
-                for(var i=1;i<last.length;i++){
-                    if(last[min].position().top+last[min].outerHeight()>last[i].position().top+last[i].outerHeight()){
-                        min=i;
-                    }
-                }
-                return min;
-            },
-            init: function () {
-                me.owner = $('.wall').css('position', 'relative');
-                me.thumbs = $('li', me.owner).css('position', 'absolute').hide();
-                me.columns = parseInt(me.owner.width() / me.thumbs.outerWidth());
-            },
-            updateLayout: function () {
-                me.init();
-                me.doLayout(0);
-            },
-            doLayout: function (index) {
-                var image = $('img', me.thumbs).eq(index);
-                me.layout(image, function (actualWidth, actualHeight) {
-                    var li = image.parent();
-                    image.width(li.width()).height(Math.round(actualWidth ? actualHeight * li.width() / actualWidth : 0)).attr('src', this.src);
-                    var pos = me.lowest(index);
-                    var prev =pos==0?none:me.last[pos-1];
-                    var top = me.last[pos];
-                    top=top||none;
-                    var x = prev.position().left + prev.outerWidth(true);
-                    var y = top.position().top + top.outerHeight(true);
-                    me.last[pos]=li;
-                    li.css({left: x, top: y});
-                    li.show();
-                    if (++index < me.thumbs.length) {
-                        me.doLayout(index);
-                    }
-                });
-            },
-            layout: function (image, callback) {
-                var measured = new Image();
-                measured.src = image.attr('src');
-                var done = false;
-                var handle = function (isTimeout) {
-                    var size;
-                    if (isTimeout == 'timeout') {
-                        measured.src = '';
-                        measured.onload = undefined;
-                        size = [0, 0];
-                    } else {
-                        done = true;
-                        size = [measured.width, measured.height];
-                    }
-                    callback.apply(measured, size);
-                };
-                measured.onload = handle;
-                setTimeout(function () {
-                    if (!done) {
-                        handle('timeout');
-                    }
-                }, me.timeout);
-            }
-        };
-
-
-    })();
     $(function () {
-        $.each(thumbs, function () {
+        $.each(albums, function () {
             $('.wall').append('<li><img src="' + this.thumb_large_url + '"/></li>');
         });
         wall.updateLayout();

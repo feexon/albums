@@ -66,19 +66,18 @@
 </head>
 <body>
 <ul class="wall">
-    <li><img src="http://e.hiphotos.baidu.com/album/w%3D2048/sign=676725f163d9f2d3201123ef9dd48b13/0d338744ebf81a4c4d9cf6d9d62a6059252da677.jpg"/></li>
-    <li><img src="http://e.hiphotos.baidu.com/album/w%3D2048/sign=676725f163d9f2d3201123ef9dd48b13/0d338744ebf81a4c4d9cf6d9d62a6059252da677.jpg"/></li>
-    <li><img src="http://e.hiphotos.baidu.com/album/w%3D2048/sign=676725f163d9f2d3201123ef9dd48b13/0d338744ebf81a4c4d9cf6d9d62a6059252da677.jpg"/></li>
-    <li><img src="http://e.hiphotos.baidu.com/album/w%3D2048/sign=676725f163d9f2d3201123ef9dd48b13/0d338744ebf81a4c4d9cf6d9d62a6059252da677.jpg"/></li>
     <script type="text/javascript">
-        var step = 30;
-        var count = parseInt((thumbs.length+ step-1)/step);
+        var step = 100;
+        var count = parseInt((albums.length+ step-1)/step);
         var pos=0;
         setTimeout(function () {
             var offset = pos * step;
             for(var i= offset;i<offset+step;i++){
-                var it=thumbs[i];
-                $('.wall').append('<li><img src="' + (it.thumb_large_url||it.image_url) + '"/><span class="title"><em>' + it.abs + '</em></span></li>');
+                var it=albums[i];
+                try {
+                    $('.wall').append('<li><img src="' + (it.image_url || it.thumb_large_url) + '"/><span class="title"><em>' + it.abs + '</em></span></li>');
+                } catch (e) {
+                }
 
             }
             wall.updateLayout();
