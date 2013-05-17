@@ -17,22 +17,24 @@
         }
 
         ul {
-            width: 100%;
+            /*width: 1423px;*/
             margin: 0 auto;
 
         }
 
         li {
-            width: 50px;
+            width: 300px;
             padding: 10px;
             background: #fff;
             border-right: 1px solid #eee;
             border-bottom: 1px solid #eee;
             margin: 10px -5px -5px 10px;
+            opacity: 0;
+            filter:alpha(opacity=0);
         }
 
         .wall span.title, .wall em {
-            width: 40px;
+            width:290px;
 
         }
 
@@ -50,7 +52,6 @@
             white-space: nowrap;
             color: #fff;
             overflow: hidden;
-            display: none;
         }
 
         .wall span em {
@@ -60,7 +61,6 @@
             text-overflow: clip;
             display: block;
             overflow: hidden;
-            display: none;
         }
     </style>
     <script type="text/javascript" src="lib/jquery.js"></script>
@@ -72,10 +72,10 @@
     <li><img src="http://c.hiphotos.baidu.com/album/w%3D2048/sign=0880e7366c224f4a579974133dcf9152/3bf33a87e950352a7c27b4185243fbf2b2118b58.jpg"/><p style="margin:0;padding:0;">文本</p></li>
     <script type="text/javascript">
         var step = 100;
-        var count = parseInt((albums.length+ step-1)/step);
-        var pos=0;
+        var pages = parseInt((albums.length+ step-1)/step);
+        var currentPage=0;
         setTimeout(function () {
-            var offset = pos * step;
+            var offset = currentPage * step;
             for(var i= offset;i<offset+step;i++){
                 var it=albums[i];
                 try {
@@ -85,7 +85,7 @@
 
             }
             wall.updateLayout({defaultImage:'images/default.png',defaultImageSize:[120,182]});
-            if(++pos<count){
+            if(++currentPage<pages){
                 setTimeout(arguments.callee,1000);
             }
         },10);
