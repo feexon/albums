@@ -17,24 +17,24 @@
         }
 
         ul {
-            /*width: 1423px;*/
+            width: 100%;
             margin: 0 auto;
 
         }
 
         li {
-            width: 300px;
+            width: 100px;
             padding: 10px;
             background: #fff;
             border-right: 1px solid #eee;
             border-bottom: 1px solid #eee;
             margin: 10px -5px -5px 10px;
             opacity: 0;
-            filter:alpha(opacity=0);
+            filter: alpha(opacity=0);
         }
 
         .wall span.title, .wall em {
-            width:290px;
+            width: 290px;
 
         }
 
@@ -69,27 +69,33 @@
 </head>
 <body>
 <ul class="wall">
-    <li><img src="http://c.hiphotos.baidu.com/album/w%3D2048/sign=0880e7366c224f4a579974133dcf9152/3bf33a87e950352a7c27b4185243fbf2b2118b58.jpg"/><p style="margin:0;padding:0;">文本</p></li>
-    <script type="text/javascript">
-        var step = 100;
-        var pages = parseInt((albums.length+ step-1)/step);
-        var currentPage=0;
+    <li><img
+            src="http://c.hiphotos.baidu.com/album/w%3D2048/sign=0880e7366c224f4a579974133dcf9152/3bf33a87e950352a7c27b4185243fbf2b2118b58.jpg"/>
+
+        <p style="margin:0;padding:0;">文本</p></li>
+
+</ul>
+<script type="text/javascript">
+    $(function () {
+        var step = 10;
+        var pages = parseInt((albums.length + step - 1) / step);
+        var currentPage = 0;
         setTimeout(function () {
             var offset = currentPage * step;
-            for(var i= offset;i<offset+step;i++){
-                var it=albums[i];
+            for (var i = offset; i < offset + step; i++) {
+                var it = albums[i];
                 try {
-                    $('.wall').append('<li><img src="' + (it.image_url || it.thumb_large_url) + '"/><span class="title"><em>' + it.abs + '</em></span></li>');
+                    $('.wall').append($('<li>').append($('<img>').attr('src', it.image_url || it.thumb_large_url)));
                 } catch (e) {
                 }
 
             }
-            wall.updateLayout({defaultImage:'images/default.png',defaultImageSize:[120,182]});
-            if(++currentPage<pages){
-                setTimeout(arguments.callee,1000);
+            wall.updateLayout({defaultImage: 'images/default.png', defaultImageSize: [120, 182]});
+            if (++currentPage < pages) {
+                setTimeout(arguments.callee, 1000);
             }
-        },10);
-    </script>
-</ul>
+        }, 10);
+    });
+</script>
 </body>
 </html>
