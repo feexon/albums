@@ -77,7 +77,7 @@
 </ul>
 <script type="text/javascript">
     $(function () {
-        var step = 10;
+        var step = 1;
         var pages = parseInt((albums.length + step - 1) / step);
         var currentPage = 0;
         setTimeout(function () {
@@ -90,7 +90,7 @@
                 }
 
             }
-            wall.updateLayout({defaultImage: 'images/default.png', defaultImageSize: [120, 182]});
+            wall.updateLayout({defaultImage: 'images/default.png', defaultImageSize: [120, 182],cache:'v'!='\v'});
             if (++currentPage < pages) {
                 setTimeout(arguments.callee, 1000);
             }
