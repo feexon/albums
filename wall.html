@@ -80,6 +80,7 @@
         var step = 30;
         var pages = parseInt((albums.length + step - 1) / step);
         var currentPage = 0;
+        wall.setUpSettings({defaultImage: 'images/default.png', defaultImageSize: [120, 182],cache:'v'!='\v'});
         setTimeout(function () {
             var offset = currentPage * step;
             for (var i = offset; i < offset + step; i++) {
@@ -90,7 +91,7 @@
                 }
 
             }
-            wall.updateLayout({defaultImage: 'images/default.png', defaultImageSize: [120, 182],cache:'v'!='\v'});
+            wall.updateLayout();
             if (++currentPage < pages) {
                 setTimeout(arguments.callee, 1000);
             }
